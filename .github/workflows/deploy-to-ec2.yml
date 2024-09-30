@@ -1,30 +1,30 @@
-# name: Code Auto Deploy to AWS
+name: Code Auto Deploy to AWS
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
 
-# jobs:
-#   build-and-deploy:
-#     runs-on: ubuntu-latest
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-#       - name: Deploy to AWS
-#         uses: appleboy/ssh-action@master
-#         with:
-#           host: ${{ secrets.AWS_HOST }}
-#           username: ${{ secrets.AWS_USERNAME }}
-#           key: ${{ secrets.AWS_PRIVATE_KEY }}
-#           port: ${{ secrets.AWS_PORT }}
-#           script: |
-#             cd frontend-cicd/
-#             git stash
-#             git pull origin main --no-ff
-#             npm install
-#             pm2 stop frontend-cicd
-#             pm2 delete frontend-cicd
-#             pm2 start "npm run dev" --name frontend-cicd
+      - name: Deploy to AWS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
+          port: ${{ secrets.AWS_PORT }}
+          script: |
+            cd frontend-cicd/
+            git stash
+            git pull origin main --no-ff
+            npm install
+            pm2 stop frontend-cicd
+            pm2 delete frontend-cicd
+            pm2 start "npm run dev" --name frontend-cicd
